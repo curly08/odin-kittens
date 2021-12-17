@@ -25,9 +25,10 @@ class KittensController < ApplicationController
 
     respond_to do |format|
       if @kitten.save
-        format.html { redirect_to kitten_url(@kitten), notice: "Kitten was successfully created." }
+        format.html { redirect_to kitten_url(@kitten), notice: "Kitten was successfully created. Way to go!" }
         format.json { render :show, status: :created, location: @kitten }
       else
+        flash.now[:notice] = "Kitten creation was unsuccessful. Try again!"
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @kitten.errors, status: :unprocessable_entity }
       end
@@ -38,9 +39,10 @@ class KittensController < ApplicationController
   def update
     respond_to do |format|
       if @kitten.update(kitten_params)
-        format.html { redirect_to kitten_url(@kitten), notice: "Kitten was successfully updated." }
+        format.html { redirect_to kitten_url(@kitten), notice: "Kitten was successfully updated. Good job!" }
         format.json { render :show, status: :ok, location: @kitten }
       else
+        flash.now[:notice] = "Kitten update was unsuccessful. Try again!"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @kitten.errors, status: :unprocessable_entity }
       end
